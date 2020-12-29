@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mjy.dao.UserMapper">
+    <select id="selectAllUser" resultType="User">
+      SELECT * from test.user_manager
+   </select>
+
+    <insert id="addUser" parameterType="User">
+         insert into test.user_manager(
+         userTime,
+         userName,
+         sex,
+         account,
+         password,
+         department,
+         duty,
+         email,
+         mobile_telephone_num,
+         family_telephone_num,
+         work_telephone_num,
+         fax_num,
+         MSN,
+         birthday,
+         personal_page,
+         address,
+         remarks)
+      values (
+      #{userTime},
+      #{userName},
+      #{sex},
+      #{account},
+      #{password},
+      #{department},
+         #{duty},
+         #{email},
+         #{mobile_telephone_num},
+         #{family_telephone_num},
+         #{work_telephone_num},
+         #{fax_num},
+         #{MSN},
+         #{birthday},
+         #{personal_page},
+         #{address},
+         #{remarks})
+    </insert>
+
+    <select id="selectAllCount" resultType="int">
+        SELECT COUNT(*) FROM user_manager
+    </select>
+
+    <!--修改用户用到的id-->
+    <select id="selectUserById" resultType="User">
+        select id,userTime,
+         userName,
+         sex,
+         account,
+         password,
+         department,
+         duty,
+         email,
+         mobile_telephone_num,
+         family_telephone_num,
+         work_telephone_num,
+         fax_num,
+         MSN,
+         birthday,
+         personal_page,
+         address,
+         remarks
+         from test.user_manager where id=#{id}
+    </select>
+    <!--通过页面传入的user数据进行数据库修改-->
+    <update id="updataUserById" >
+        UPDATE test.user_manager SET
+         userName=#{userName},
+         sex=#{sex},
+         account=#{account},
+         password=#{password},
+         department=#{department},
+         duty=#{duty},
+         email=#{email},
+         mobile_telephone_num=#{mobile_telephone_num},
+         family_telephone_num=#{family_telephone_num},
+         work_telephone_num=#{work_telephone_num},
+         fax_num=#{fax_num},
+         MSN=#{MSN},
+         birthday=#{birthday},
+         personal_page=#{personal_page},
+         address=#{address},
+         remarks=#{remarks}
+         WHERE id = #{id}
+    </update>
+
+    <!--根据id删除需要删除的信息-->
+    <delete id="deleteUserById" parameterType="choose">
+        delete from test.user_manager where id in
+        <foreach collection="chooseId" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据姓名职位或者部门查询用户-->
+    <select id="selectCurrentAllUser" resultType="User">
+        select
+        id,
+        userTime,
+        userName,
+        sex,
+        account,
+        password,
+        department,
+        duty,
+        email,
+        mobile_telephone_num,
+        family_telephone_num,
+        work_telephone_num,
+        fax_num,
+        MSN,
+        birthday,
+        personal_page,
+        address,
+        remarks
+        from test.user_manager
+        <where>
+            <if test="1==1">
+                1=1
+            </if>
+            <if test="userName1!=null and userName1!='' ">
+                and userName like '%' #{userName1} '%'
+            </if>
+            <if test="department1!=null and department1!='' ">
+                and department like '%' #{department1} '%'
+            </if>
+            <if test="duty1!=null and duty1!='' ">
+                and duty like '%' #{duty1} '%'
+            </if>
+        </where>
+         limit #{pageStartIndex},#{pageSize}
+    </select>
+    <!--通过姓名部门职业查询数据-->
+    <select id="selectCountByName" resultType="User">
+        select
+        id,
+        userTime,
+        userName,
+        sex,
+        account,
+        password,
+        department,
+        duty,
+        email,
+        mobile_telephone_num,
+        family_telephone_num,
+        work_telephone_num,
+        fax_num,
+        MSN,
+        birthday,
+        personal_page,
+        address,
+        remarks
+        from test.user_manager
+        <where>
+            <if test="1==1">
+                1=1
+            </if>
+            <if test="userName1!=null and userName1!='' ">
+                and userName like '%' #{userName1} '%'
+            </if>
+            <if test="department1!=null and department1!='' ">
+                and department like '%' #{department1} '%'
+            </if>
+            <if test="duty1!=null and duty1!='' ">
+                and duty like '%' #{duty1} '%'
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAllDepartment" resultType="string">
+        SELECT DISTINCT department FROM test.user_manager
+    </select>
+
+    <select id="selectAllDuty" resultType="string">
+        SELECT DISTINCT duty FROM test.user_manager
+    </select>
+</mapper>
