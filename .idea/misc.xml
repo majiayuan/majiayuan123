@@ -3,6 +3,7 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
+    <file type="web" url="file://$PROJECT_DIR$/../springmvc" />
     <file type="web" url="file://$PROJECT_DIR$/../wb" />
     <type id="Spring" />
   </component>
@@ -10,7 +11,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/../wb/pom.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../springmvc/pom.xml" />
       </list>
     </option>
   </component>
